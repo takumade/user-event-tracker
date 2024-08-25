@@ -13,6 +13,12 @@ export interface IPost {
   category: ICategory;
 }
 
+export interface IUser {
+  _id: string
+  username: string
+  email:string
+}
+
 export type Nullable<T> = {
   [P in keyof T]: T[P] | null;
 };
