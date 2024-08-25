@@ -29,7 +29,7 @@ import { useFormContext } from "react-hook-form";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 
-import { PostList, PostCreate, PostEdit } from "../src/pages/posts";
+import { UsersList, UsersCreate, UsersEdit } from "../src/pages/users";
 
 /**
  *  mock auth credentials to simulate authentication
@@ -179,22 +179,22 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <GitHubBanner />
+      {/* <GitHubBanner /> */}
       <ThemeProvider theme={RefineThemes.Blue}>
         <CssBaseline />
         <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
         <RefineSnackbarProvider>
           <Refine
             authProvider={authProvider}
-            dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+            dataProvider={dataProvider("http://localhost:3000/api")}
             routerProvider={routerProvider}
             notificationProvider={useNotificationProvider}
             resources={[
               {
-                name: "posts",
-                list: "/posts",
-                edit: "/posts/edit/:id",
-                create: "/posts/create",
+                name: "users",
+                list: "users",
+                edit: "users/:id",
+                create: "users/create",
               },
             ]}
             options={{
@@ -217,20 +217,20 @@ const App: React.FC = () => {
               >
                 <Route
                   index
-                  element={<NavigateToResource resource="posts" />}
+                  element={<NavigateToResource resource="user" />}
                 />
 
-                <Route path="/posts">
-                  <Route index element={<PostList />} />
-                  <Route path="create" element={<PostCreate />} />
-                  <Route path="edit/:id" element={<PostEdit />} />
+                <Route path="users">
+                  <Route index element={<UsersList />} />
+                  <Route path="create" element={<UsersCreate />} />
+                  <Route path="edit/:id" element={<UsersEdit />} />
                 </Route>
               </Route>
 
               <Route
                 element={
                   <Authenticated key="auth-pages" fallback={<Outlet />}>
-                    <NavigateToResource resource="posts" />
+                    <NavigateToResource resource="users" />
                   </Authenticated>
                 }
               >
