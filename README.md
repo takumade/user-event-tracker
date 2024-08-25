@@ -68,3 +68,22 @@ And run
 npm run start
 ```
 
+## Containerizing
+
+You can also run this app in a docker container.
+
+**1. Review and add changes**
+Review  the Dockerfile and build.sh scripts and edit some changes
+
+**2. Build the script**
+Make the script executable:
+
+```sh
+chmod +x build.sh
+```
+
+Run it:
+
+```sh
+./build.sh
+```
