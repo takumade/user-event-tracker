@@ -38,6 +38,15 @@ class UserController {
         res.json(user)
       }
 
+      async editUser(req, res){
+        let user = await User.updateOne(
+            {_id: req.params._id},  
+            { email: req.body.email }, 
+            { new: true })
+
+            res.json(user)
+      }
+
       getUserEvents (req, res){
         var date = (req.body.date ? (req.body.date) : (new Date()))
         
