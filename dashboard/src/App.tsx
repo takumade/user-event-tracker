@@ -12,6 +12,7 @@ import {
   RefineSnackbarProvider,
   AuthPage,
   ThemedTitleV2,
+  Sider,
 } from "@refinedev/mui";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
@@ -29,8 +30,12 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
+import GroupIcon from '@mui/icons-material/Group';
+import EventIcon from '@mui/icons-material/Event';
 
 import { UsersList, UsersCreate, UsersEdit } from "../src/pages/users";
+import { EventsCreate, EventsEdit, EventsList } from "./pages/events";
+
 
 /**
  *  mock auth credentials to simulate authentication
@@ -138,17 +143,17 @@ const App: React.FC = () => {
     check: async () =>
       localStorage.getItem("email")
         ? {
-            authenticated: true,
-          }
+          authenticated: true,
+        }
         : {
-            authenticated: false,
-            error: {
-              message: "Check failed",
-              name: "Not authenticated",
-            },
-            logout: true,
-            redirectTo: "/login",
+          authenticated: false,
+          error: {
+            message: "Check failed",
+            name: "Not authenticated",
           },
+          logout: true,
+          redirectTo: "/login",
+        },
     getPermissions: async () => ["admin"],
     getIdentity: async () => ({
       id: 1,
@@ -190,12 +195,25 @@ const App: React.FC = () => {
             dataProvider={dataProvider("http://localhost:3000/api")}
             routerProvider={routerProvider}
             notificationProvider={useNotificationProvider}
+            
             resources={[
               {
                 name: "users",
                 list: "users",
                 edit: "users/:id/edit",
                 create: "users/create",
+                meta: {
+                  icon: <GroupIcon></GroupIcon>
+                }
+              },
+              {
+                name: "events",
+                list: "events",
+                edit: "events/:id/edit",
+                create: "events/create",
+                meta: {
+                  icon: <EventIcon></EventIcon>
+                }
               },
             ]}
             options={{
@@ -211,12 +229,12 @@ const App: React.FC = () => {
                     fallback={<CatchAllNavigate to="/login" />}
                   >
                     <ThemedLayoutV2 Title={({ collapsed }) => (
-          <ThemedTitleV2
-            // collapsed is a boolean value that indicates whether the <Sidebar> is collapsed or not
-            collapsed={collapsed}
-            text="User Events"
-          />
-        )}>
+                      <ThemedTitleV2
+                        // collapsed is a boolean value that indicates whether the <Sidebar> is collapsed or not
+                        collapsed={collapsed}
+                        text="User Events"
+                      />
+                    )}>
                       <Outlet />
                     </ThemedLayoutV2>
                   </Authenticated>
@@ -232,6 +250,14 @@ const App: React.FC = () => {
                   <Route path="/users/create" element={<UsersCreate />} />
                   <Route path="/users/:id/edit" element={<UsersEdit />} />
                 </Route>
+
+                <Route path="events">
+                  <Route index element={<EventsList />} />
+                  <Route path="/events/create" element={<EventsCreate />} />
+                  <Route path="/events/:id/edit" element={<EventsEdit />} />
+                </Route>
+
+
               </Route>
 
               <Route
