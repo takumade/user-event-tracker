@@ -104,9 +104,9 @@ There are two methods to do so
 
 
 ```sh
-docker build -t vite -f ./Dockerfile.nginx .
+docker build -t dashboard -f ./Dockerfile.nginx .
 
-docker run -p 5173:80 vite
+docker run -p 5173:80 dashboard
 
 # or
 
