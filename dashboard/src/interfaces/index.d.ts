@@ -19,6 +19,17 @@ export interface IUser {
   email:string
 }
 
+export interface IEvent {
+  _id: string
+  userId: string
+  event_type: string
+  description: description 
+  data: any 
+  date: Date
+  duration: number
+
+}
+
 export type Nullable<T> = {
   [P in keyof T]: T[P] | null;
 };
