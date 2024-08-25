@@ -6,7 +6,7 @@ const userCtrl = new UserController();
 
 router.post("/", userCtrl.createUser);
 router.get("/", userCtrl.getUsers);
-router.post("/:_id/exercises", userCtrl.getUserExercises);
+router.post("/:_id/events", userCtrl.getUserEvents);
 router.get("/:_id/logs", userCtrl.getUserLogs);
 
 module.exports = router;
