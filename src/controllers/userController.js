@@ -26,7 +26,7 @@ class UserController {
       }
 
       async getUsers(req, res){
-        users = await User.find({});
+        let users = await User.find({});
         res.json(users)
       }
 
@@ -63,10 +63,10 @@ class UserController {
     }
 
     getUserLogs(req, res){
-        from_date = req.query.from 
-        to_date = req.query.to 
-        limit_res = req.query.limit
-        userId = req.params._id
+        let from_date = req.query.from 
+        let to_date = req.query.to 
+        let limit_res = req.query.limit
+        let userId = req.params._id
       
       
         User.findById(req.params._id, (err, user) => {
