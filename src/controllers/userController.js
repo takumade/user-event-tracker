@@ -33,6 +33,11 @@ class UserController {
         res.json(users)
       }
 
+      async getUser(req, res){
+        let user = await User.findOne({_id: req.params._id});
+        res.json(user)
+      }
+
       getUserEvents (req, res){
         var date = (req.body.date ? (req.body.date) : (new Date()))
         
