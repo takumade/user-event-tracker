@@ -11,6 +11,7 @@ import {
   useNotificationProvider,
   RefineSnackbarProvider,
   AuthPage,
+  ThemedTitleV2,
 } from "@refinedev/mui";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
@@ -193,7 +194,7 @@ const App: React.FC = () => {
               {
                 name: "users",
                 list: "users",
-                edit: "users/:id",
+                edit: "users/:id/edit",
                 create: "users/create",
               },
             ]}
@@ -209,7 +210,13 @@ const App: React.FC = () => {
                     key="authenticated-routes"
                     fallback={<CatchAllNavigate to="/login" />}
                   >
-                    <ThemedLayoutV2>
+                    <ThemedLayoutV2 Title={({ collapsed }) => (
+          <ThemedTitleV2
+            // collapsed is a boolean value that indicates whether the <Sidebar> is collapsed or not
+            collapsed={collapsed}
+            text="User Events"
+          />
+        )}>
                       <Outlet />
                     </ThemedLayoutV2>
                   </Authenticated>
@@ -222,8 +229,8 @@ const App: React.FC = () => {
 
                 <Route path="users">
                   <Route index element={<UsersList />} />
-                  <Route path="create" element={<UsersCreate />} />
-                  <Route path="edit/:id" element={<UsersEdit />} />
+                  <Route path="/users/create" element={<UsersCreate />} />
+                  <Route path="/users/:id/edit" element={<UsersEdit />} />
                 </Route>
               </Route>
 
