@@ -94,7 +94,11 @@ Run it:
 ### Dashboard
 
 **1. Navigate to dashboard directory**
-Review  the Dockerfile and build.sh scripts and edit some changes
+Go to the dashbaord folder
+
+```sh
+cd dashbaord
+```
 
 **2. Build the script and run**
 
