@@ -1,3 +1,4 @@
+const Exercise = require("../models/exerciseModel")
 const User = require("../models/userModels")
 
 class UserController {
