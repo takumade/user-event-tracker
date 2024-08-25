@@ -1,4 +1,4 @@
-import type { HttpError } from "@refinedev/core";
+import {  type HttpError } from "@refinedev/core";
 import { Edit, useAutocomplete } from "@refinedev/mui";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -8,8 +8,10 @@ import { useForm } from "@refinedev/react-hook-form";
 import { Controller } from "react-hook-form";
 
 import type { IPost, ICategory, IStatus, Nullable, IUser } from "../../interfaces";
+import { FormControlLabel, FormLabel } from "@mui/material";
 
 export const UsersEdit: React.FC = () => {
+
   const {
     saveButtonProps,
     refineCore: { query: queryResult },
@@ -26,6 +28,27 @@ export const UsersEdit: React.FC = () => {
         sx={{ display: "flex", flexDirection: "column" }}
         autoComplete="off"
       >
+
+
+
+
+<TextField
+          {...register("_id", {
+            required: "This field is required",
+          })}
+          error={!!errors.username}
+          helperText={errors.username?.message}
+          margin="normal"
+          disabled
+          style={{display: "none"}}
+          fullWidth
+          label="Id"
+          name="_id"
+          autoFocus
+          InputLabelProps={{ shrink: true }}  
+        />
+    
+    
         <TextField
           {...register("username", {
             required: "This field is required",
@@ -34,6 +57,7 @@ export const UsersEdit: React.FC = () => {
           helperText={errors.username?.message}
           margin="normal"
           fullWidth
+          InputLabelProps={{ shrink: true }}  
           label="Username"
           name="username"
           autoFocus
@@ -48,6 +72,7 @@ export const UsersEdit: React.FC = () => {
           helperText={errors.email?.message}
           margin="normal"
           fullWidth
+          InputLabelProps={{ shrink: true }}  
           label="Email"
           name="email"
           autoFocus
