@@ -19,6 +19,7 @@ A microservice for tracking events. This microservice allows you to add, manage 
 - Express JS (Server)
 - Mongo DB (Database)
 - Refine (Dashbaord)
+- Docker (Containerization)
 
 ## Installation (Server)
 
@@ -72,6 +73,8 @@ npm run start
 
 You can also run this app in a docker container.
 
+### Server
+
 **1. Review and add changes**
 Review  the Dockerfile and build.sh scripts and edit some changes
 
@@ -86,4 +89,28 @@ Run it:
 
 ```sh
 ./build.sh
+```
+
+### Dashboard
+
+**1. Navigate to dashboard directory**
+Review  the Dockerfile and build.sh scripts and edit some changes
+
+**2. Build the script and run**
+
+There are two methods to do so
+- `Dockerfile.serve:` Uses serve package. https://www.npmjs.com/package/serve
+- `Dockerfile.nginx:` Uses nginx with Gzip config for better performance.
+
+
+```sh
+docker build -t vite -f ./Dockerfile.nginx .
+
+docker run -p 5173:80 vite
+
+# or
+
+docker build -t vite -f ./Dockerfile.serve .
+
+docker run -p 5173:3000 vite
 ```
