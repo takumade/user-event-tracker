@@ -10,7 +10,7 @@ const moment = require("moment")
 const generalRouter = require("./src/routes/generalRoutes")
 const usersRouter = require('./src/routes/userRoutes')
 
-mongoose.connect(process.env['MONGOOSE_URL'], { useNewUrlParser: true },  { useUnifiedTopology: true })
+mongoose.connect(process.env['MONGOOSE_URL'], { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(cors())
