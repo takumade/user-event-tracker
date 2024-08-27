@@ -47,6 +47,14 @@ And run
 npm run start
 ```
 
+**4. Seeding (optional)**
+
+You can seed the database by running the following command
+
+```sh
+npm run seed
+```
+
 
 ## Installation (Dashboard)
 
