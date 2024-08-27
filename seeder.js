@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const User = require("./path-to-your-models/User"); // Update the path to your User model
-const UserEvent = require("./path-to-your-models/UserEvent"); // Update the path to your UserEvent model
+const UserEvent = require("./src/models/userEventModel");
+const User = require("./src/models/userModels")
 
 const connectDB = async () => {
     try {
-        await mongoose.connect("mongodb://localhost:27017/your-database-name", {
+        await mongoose.connect(`${process.env.MONGOOSE_URL}`, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
