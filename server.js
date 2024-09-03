@@ -23,6 +23,4 @@ app.use('/', generalRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/events', eventsRouter)
 
-const listener = app.listen(process.env.PORT || 3000, () => {
-  console.log('Your app is listening on port ' + listener.address().port)
-})
+module.exports = app
