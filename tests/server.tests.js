@@ -7,21 +7,71 @@ require("dotenv").config();
 
 beforeAll(async () => {
     await mongoose.disconnect();
-    await mongoose.connect(process.env["MONGO_URL"],   { useNewUrlParser: true,useUnifiedTopology: true  });
+    await mongoose.connect(process.env["MONGOOSE_URL"],   { useNewUrlParser: true,useUnifiedTopology: true  });
   });
   
   
 
 
 
-describe("GET /api/hello", () => {
-    it("should return a greeting message", async () => {
+describe("Users tests", () => {
+
+    let userId = 0
+    it("should get all users", async () => {
         return request(app)
-            .get("/api/hello")
+            .get("/api/users")
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
                 expect(res.statusCode).toBe(200);
+            })
+    });
+
+
+    it("should create a user", async () => {
+        return request(app)
+            .post("/api/users")
+            .set('Content-Type', "application/json")
+            .expect('Content-Type', /json/)
+            .send({
+                name: "tom",
+                email: "tom@mail.com"
+            })
+            .expect(200)
+            .then((res) => {
+                short_url = JSON.parse(res.text).short_url
+                expect(res.statusCode).toBe(200);
+                expect(Object.keys(JSON.parse(res.text)).includes("short_url")).toBe(true)
+            })
+    });
+
+
+    it("should edit a user", async () => {
+        return request(app)
+            .patch("/api/users/"+userId)
+            .set('Content-Type', "application/json")
+            .expect('Content-Type', /json/)
+            .send({
+                name: "jacob"
+            })
+            .expect(200)
+            .then((res) => {
+                short_url = JSON.parse(res.text).short_url
+                expect(res.statusCode).toBe(200);
+                expect(Object.keys(JSON.parse(res.text)).includes("short_url")).toBe(true)
+            })
+    });
+
+    it("should get a user", async () => {
+        return request(app)
+            .get("/api/users/"+userId)
+            .set('Content-Type', "application/json")
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                short_url = JSON.parse(res.text).short_url
+                expect(res.statusCode).toBe(200);
+                expect(Object.keys(JSON.parse(res.text)).includes("short_url")).toBe(true)
             })
     });
 });
