@@ -20,6 +20,7 @@ A microservice for tracking events. This microservice allows you to add, manage 
 - Mongo DB (Database)
 - Refine (Dashbaord)
 - Docker (Containerization)
+- Jest (testing)
 
 ## Installation (Server)
 
