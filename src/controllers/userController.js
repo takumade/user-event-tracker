@@ -28,8 +28,12 @@ class UserController {
   }
 
   async getUsers(req, res) {
-    let users = await User.find({});
-    res.json(users);
+    try{
+      let users = await User.find({});
+      res.status(200).json(users);
+    }catch(err){
+      res.status(500).json(err)
+    }
   }
 
   async getUser(req, res) {
