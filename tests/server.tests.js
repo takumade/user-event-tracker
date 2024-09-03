@@ -39,9 +39,9 @@ describe("Users tests", () => {
             })
             .expect(200)
             .then((res) => {
-                short_url = JSON.parse(res.text).short_url
+                userId = JSON.parse(res.text)._id
                 expect(res.statusCode).toBe(200);
-                expect(Object.keys(JSON.parse(res.text)).includes("short_url")).toBe(true)
+                expect(Object.keys(JSON.parse(res.text)).includes("_id")).toBe(true)
             })
     });
 
@@ -56,9 +56,10 @@ describe("Users tests", () => {
             })
             .expect(200)
             .then((res) => {
-                short_url = JSON.parse(res.text).short_url
+                let name = JSON.parse(res.text).name
                 expect(res.statusCode).toBe(200);
-                expect(Object.keys(JSON.parse(res.text)).includes("short_url")).toBe(true)
+                expect(Object.keys(JSON.parse(res.text)).includes("name")).toBe(true)
+                expect(name === "jacob").toBe(true)
             })
     });
 
@@ -69,9 +70,7 @@ describe("Users tests", () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .then((res) => {
-                short_url = JSON.parse(res.text).short_url
                 expect(res.statusCode).toBe(200);
-                expect(Object.keys(JSON.parse(res.text)).includes("short_url")).toBe(true)
             })
     });
 });
