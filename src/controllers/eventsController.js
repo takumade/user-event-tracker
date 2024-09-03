@@ -2,18 +2,21 @@ const UserEvent = require("../models/userEventModel");
 const User = require("../models/userModels");
 
 class EventsController {
-  createEvent(req, res) {
-    console.log("Req.body: ", req.body);
-
+  async createEvent(req, res) {
     try{
 
         if (!req.body.userId || !req.body.event_type || !req.body.date){
-            throw Error("userId, event_type & date are required! ")
+            res.status(500).json("userId, event_type & date are required! ")
         }
 
-        let event = new UserEvent(req.body)
+        let user = await User.findById(req.body.userId)
+
+        let event = new UserEvent({
+          ...req.body,
+          userId: user._id
+        })
         event.save()
-        res.json(event)
+        res.status(200).json(event)
     }catch(error){
         res.status(500).json({
             message: error.message
