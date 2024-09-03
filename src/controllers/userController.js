@@ -22,7 +22,8 @@ class UserController {
           res.json(data);
         });
       } else {
-        res.json("Username already taken");
+        // res.json("Username already taken");
+        res.json(data);
       }
     });
   }
@@ -47,11 +48,14 @@ class UserController {
 
   async editUser(req, res) {
     try{
-      let user = await User.updateOne(
+      await User.updateOne(
         { _id: req.params._id },
         { email: req.body.email },
         { new: true }
       );
+
+
+      let user = await User.findOne({_id: req.params._id})
 
       res.status(200).json(user);
     }catch(err){
