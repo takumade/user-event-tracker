@@ -37,18 +37,26 @@ class UserController {
   }
 
   async getUser(req, res) {
-    let user = await User.findOne({ _id: req.params._id });
-    res.json(user);
+    try{
+      let user = await User.findOne({ _id: req.params._id });
+      res.status(200).json(user);
+    }catch(err){
+      res.status(500).json(err)
+    }
   }
 
   async editUser(req, res) {
-    let user = await User.updateOne(
-      { _id: req.params._id },
-      { email: req.body.email },
-      { new: true }
-    );
+    try{
+      let user = await User.updateOne(
+        { _id: req.params._id },
+        { email: req.body.email },
+        { new: true }
+      );
 
-    res.json(user);
+      res.status(200).json(user);
+    }catch(err){
+      res.status(500).json(err)
+    }
   }
 }
 
