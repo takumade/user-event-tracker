@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const UserEvent = require("./src/models/userEventModel");
 const User = require("./src/models/userModels")
+require('dotenv').config()
 
 const connectDB = async () => {
     try {
