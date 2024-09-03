@@ -37,6 +37,25 @@ export const EventsList: React.FC = () => {
 
       },
       {
+        field: "description",
+        headerName: "Description",
+        type: "string",
+        
+
+      },
+      {
+        field: "duration",
+        headerName: "Duration",
+        type: "string",
+      
+      },
+      {
+        field: "date",
+        headerName: "Date",
+        type: "string",
+      
+      },
+      {
         field: "actions",
         headerName: "Actions",
         renderCell: function render({ row }) {
