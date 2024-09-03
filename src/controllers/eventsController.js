@@ -22,7 +22,16 @@ class EventsController {
   }
 
   async getEvents(req, res) {
-    let events = await UserEvent.find({});
+
+    const { pageSize = 10, current = 1 } = req.query; // Get pageSize and current from query parameters
+
+    // Convert pageSize and current to numbers
+    const limit = parseInt(pageSize);
+    const skip = (parseInt(current) - 1) * limit;
+
+    let events = await UserEvent.find({})
+                                .skip(skip)
+                                .limit(limit);;
     res.json(events);
   }
 
