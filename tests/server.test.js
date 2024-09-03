@@ -5,6 +5,7 @@ const app = require("../server");
 
 require("dotenv").config();
 let userId = 0
+let eventId = 0
 
 beforeAll(async () => {
     await mongoose.disconnect();
@@ -41,8 +42,6 @@ describe("Users tests", () => {
             .expect(200)
             .then((res) => {
                 userId = JSON.parse(res.text)._id
-
-                console.log("user id: ", JSON.parse(res.text)._id)
                 expect(res.statusCode).toBe(200);
                 expect(Object.keys(JSON.parse(res.text)).includes("_id")).toBe(true)
             })
@@ -60,7 +59,6 @@ describe("Users tests", () => {
             })
             .expect(200)
             .then((res) => {
-                console.log("Edit user: ", JSON.parse(res.text))
                 let email = JSON.parse(res.text).email
                 expect(res.statusCode).toBe(200);
                 expect(Object.keys(JSON.parse(res.text)).includes("email")).toBe(true)
@@ -71,6 +69,80 @@ describe("Users tests", () => {
     it("should get a user", async () => {
         return request(app)
             .get("/api/users/"+userId)
+            .set('Content-Type', "application/json")
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                expect(res.statusCode).toBe(200);
+            })
+    });
+});
+
+
+describe("Events tests", () => {
+
+   
+    it("should get all events", async () => {
+        return request(app)
+            .get("/api/events")
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .then((res) => {
+                expect(res.statusCode).toBe(200);
+            })
+    });
+
+
+    it("should create an event", async () => {
+
+   
+        return request(app)
+            .post("/api/events")
+            .set('Content-Type', "application/json")
+            .expect('Content-Type', /json/)
+            .send({
+                userId: userId,
+                date: new Date(new Date().setDate(new Date().getDate() - Math.floor(Math.random() * 365))), // Random date within the last year
+                event_type: "walking", // Random event type
+                duration: Math.floor(Math.random() * 180), // Random duration between 0-180 minutes
+                description: "Auto-generated event",
+                data: {
+                    info: `Random data walking`,
+                    value: Math.floor(Math.random() * 100),
+                },
+            })
+            .expect(200)
+            .then((res) => {
+
+
+                eventId = JSON.parse(res.text)._id
+                expect(res.statusCode).toBe(200);
+                expect(Object.keys(JSON.parse(res.text)).includes("_id")).toBe(true)
+            })
+    });
+
+
+    it("should edit an event", async () => {
+
+        return request(app)
+            .patch("/api/events/"+eventId)
+            .set('Content-Type', "application/json")
+            .expect('Content-Type', /json/)
+            .send({
+                event_type: "sleeping"
+            })
+            .expect(200)
+            .then((res) => {
+                let eventType = JSON.parse(res.text).nModified
+                expect(res.statusCode).toBe(200);
+                expect(Object.keys(JSON.parse(res.text)).includes("nModified")).toBe(true)
+                expect(eventType === 1).toBe(true)
+            })
+    });
+
+    it("should get an event", async () => {
+        return request(app)
+            .get("/api/events/"+eventId)
             .set('Content-Type', "application/json")
             .expect('Content-Type', /json/)
             .expect(200)
