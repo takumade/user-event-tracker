@@ -12,5 +12,5 @@ userEventSchema = new Schema({
     }
  })
  
-let UserEvent = mongoose.model("Exercise", userEventSchema)
+let UserEvent = mongoose.model("UserEvent", userEventSchema)
 module.exports = UserEvent
